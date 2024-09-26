@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #matrix-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #000;
+            /* 边框，更清晰地显示每个格子 */
+            flex-wrap: wrap;
+            width: 860px;
+        }
+        .cell{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: lightblue;
+            border: 1px solid #000;
+            width: 80px;
+            height: 80px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="matrix-container"></div>
+    <svg width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 船身 -->
+        <path d="M 75,75 Q 100,50 125,75 Q 115,75 100,60 Q 85,75 75,75" fill="#456"/>
+        <!-- 前帆 -->
+        <path d="M 100,60 L 110,75 L 100,75 Z" fill="#789"/>
+        <!-- 后帆 -->
+        <path d="M 100,60 L 90,75 L 100,75 Z" fill="#abc"/>
+        <!-- 船帆线 -->
+        <line x1="100" y1="60" x2="100" y2="75" stroke="black" stroke-width="2"/>
+      </svg>
+
+    <script src="./index.js"></script>
+    <script>
+        const directionMap = 
+        {
+            'UP':'上',
+            'DOWN':'下',
+            'LEFT_UP':'左上',
+            'RIGHT_UP':'右上',
+            'LEFT_DOWN':'左下',
+            'RIGHT_DOWN':'右下'
+        }
+        const matrixContainer = document.getElementById('matrix-container');
+        const gridSize = Line_Number; // 网格大小为8x8
+
+        // 初始化8x8的网格
+        for (let i = 0; i < gridSize; i++) {
+            for (let j = 0; j < gridSize; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell'); // 添加cell类，如果需要的话
+                matrixContainer.appendChild(cell);
+            }
+        }
+
+        // 在网格中放置船只
+        graph.ships.forEach(ship => {
+            const { positions } = ship; // 获取船只的位置
+            positions.forEach(position => {
+                const index = position[0] * gridSize + position[1]; // 计算船只在网格中的索引
+                const shipDiv = document.createElement('div');
+                shipDiv.classList.add('ship');
+                shipDiv.style.backgroundColor = ship.color; // 设置船只的颜色
+                shipDiv.textContent = ship.id+' '+directionMap[ship.direction]; // 使用船只图标或其他内容标识船只
+                shipDiv.id = ship.id;
+                matrixContainer.children[index].appendChild(shipDiv); // 将船只添加到对应的网格中
+            })
+        });
+
+        matrixContainer.addEventListener('click', (event) => {
+            const clickedCell = event.target;
+            const id = clickedCell.id;
+            console.log("%c Line:78 🍆 id", "color:#3f7cff", id);
+            const edges=graph.edgeList.get(Number(id));
+            console.log("%c Line:76 🍔 edges", "color:#ea7e5c", edges);
+            if(edges.length===0){
+                graph.removeShip(Number(id))
+                clickedCell.remove();
+            }
+            else {
+                console.log("%c Line:80 🥐 有阻挡", "color:#ff4f4f", edges);
+            }
+        });
+
+    </script>
+</body>
+
+</html>
