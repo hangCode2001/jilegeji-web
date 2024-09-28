@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc index.ts"
+    "dev": "rsbuild dev --open",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "dependencies": {
+    "preact": "^10.23.2"
+  },
   "devDependencies": {
-    "typescript": "^5.5.4"
+    "@rsbuild/core": "^1.0.1",
+    "@rsbuild/plugin-preact": "^1.0.1",
+    "typescript": "^5.5.2"
   }
 }
