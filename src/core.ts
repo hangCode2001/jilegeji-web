@@ -189,44 +189,6 @@ function getShipInDirection(ship: Ship, map: number[][]): number[] {
   return dependentShips;
 }
 
-function deepCopy(obj) {
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
-  }
-
-  if (obj instanceof Date) {
-    return new Date(obj);
-  }
-
-  if (obj instanceof Map) {
-    const clonedMap = new Map();
-    obj.forEach((value, key) => {
-      clonedMap.set(key, deepCopy(value));
-    });
-    return clonedMap;
-  }
-
-  if (obj instanceof Set) {
-    const clonedSet = new Set();
-    obj.forEach(value => {
-      clonedSet.add(deepCopy(value));
-    });
-    return clonedSet;
-  }
-
-  if (obj instanceof Array) {
-    return obj.map(item => deepCopy(item));
-  }
-
-  const clonedObj = {};
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      clonedObj[key] = deepCopy(obj[key]);
-    }
-  }
-  return clonedObj;
-}
-
 // 判断图是否有环
 function hasCycle(graph: Graph): boolean {
   let visited = new Set();
@@ -311,7 +273,7 @@ function findAllLeavingSequences(graph: Graph): number[][] {
   return results;
 }
 
-const { graph } = generateGraph(40);
-console.log("%c Line:254 🍺 graph", "color:#465975", graph);
-const results = findAllLeavingSequences(graph);
-console.log("%c Line:256 🍖 results", "color:#e41a6a", results);
+export {
+  generateGraph,
+  findAllLeavingSequences
+}
